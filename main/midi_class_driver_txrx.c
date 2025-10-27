@@ -9,6 +9,7 @@
 #include "freertos/queue.h"
 #include "esp_log.h"
 #include "usb/usb_host.h"
+#include "esp_mac.h"
 
 #define USB_CLIENT_NUM_EVENT_MSG    5
 #define MIDI_MESSAGE_LENGTH         4
@@ -552,50 +553,4 @@ bool midi_send_data(const uint8_t *data, size_t length) {
     process_tx_queue(global_driver_instance);
     
     return true;
-}
-
-// Função para enviar Note On
-bool midi_send_note_on(uint8_t channel, uint8_t note, uint8_t velocity) {
-    uint8_t midi_message[MIDI_MESSAGE_LENGTH] = {
-        0x09,                          // Cable number + Code Index Number
-        (uint8_t)(0x90 | (channel & 0x0F)),  // Status byte (Note On) + channel
-        note & 0x7F,                   // Note number
-        velocity & 0x7F                // Velocity
-    };
-    
-    return midi_send_data(midi_message, sizeof(midi_message));
-}
-
-// Função para enviar Note Off
-bool midi_send_note_off(uint8_t channel, uint8_t note, uint8_t velocity) {
-    uint8_t midi_message[MIDI_MESSAGE_LENGTH] = {
-        0x08,                          // Cable number + Code Index Number
-        (uint8_t)(0x80 | (channel & 0x0F)),  // Status byte (Note Off) + channel
-        note & 0x7F,                   // Note number
-        velocity & 0x7F                // Velocity
-    };
-    
-    return midi_send_data(midi_message, sizeof(midi_message));
-}
-
-// Função para enviar Control Change
-bool midi_send_control_change(uint8_t channel, uint8_t controller, uint8_t value) {
-    uint8_t midi_message[MIDI_MESSAGE_LENGTH] = {
-        0x0B,  // Cable 0 + CIN 0x0B (Control Change)
-        (uint8_t)(0xB0 | (channel & 0x0F)),
-        controller & 0x7F,
-        value & 0x7F
-    };
-    return midi_send_data(midi_message, sizeof(midi_message));
-}
-
-// Função para enviar Program Change
-bool midi_send_program_change(uint8_t channel, uint8_t program) {
-    uint8_t midi_message[MIDI_MESSAGE_LENGTH] = {
-        0x0C,  // Cable 0 + CIN 0x0C (Program Change)
-        (uint8_t)(0xC0 | (channel & 0x0F)),
-        program & 0x7F,
-        0x00
-    };
-    return midi_send_data(midi_message, sizeof(midi_message));
 }

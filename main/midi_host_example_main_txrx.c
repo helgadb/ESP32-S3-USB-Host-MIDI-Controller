@@ -19,9 +19,6 @@ static const char *TAG = "DAEMON";
 #define BUTTON_GPIO             6
 #define BUTTON_ACTIVE_LEVEL     0   // 0 para botão ativo em LOW (pull-up)
 
-// Declaração da função de status (já está no midi_class_driver_txrx.c)
-extern void midi_driver_print_status(void);
-
 static void host_lib_daemon_task(void *arg)
 {
     SemaphoreHandle_t signaling_sem = (SemaphoreHandle_t)arg;
@@ -60,7 +57,7 @@ static void button_check_task(void *arg)
     };
     gpio_config(&io_conf);
 
-    ESP_LOGI(TAG, "🎛️ SINGLE COMMAND MODE");
+    ESP_LOGI(TAG, "SINGLE COMMAND MODE");
     ESP_LOGI(TAG, "Press button to send: 0B B0 00 00");
 
     bool last_button_state = true;
@@ -69,14 +66,14 @@ static void button_check_task(void *arg)
         bool current_state = gpio_get_level(BUTTON_GPIO);
         
         if (last_button_state && !current_state) {
-            ESP_LOGI(TAG, "🎹 SENDING: 0B B0 00 00");
+            ESP_LOGI(TAG, "SENDING: 0B B0 00 00");
             
             if (midi_driver_ready_for_tx()) {
                 // Enviar APENAS este comando específico
                 uint8_t midi_message[MIDI_MESSAGE_LENGTH] = {0x0B, 0xB0, 0x00, 0x00};
                 midi_send_data(midi_message, sizeof(midi_message));
             } else {
-                ESP_LOGI(TAG, "❌ Driver not ready");
+                ESP_LOGI(TAG, "Driver not ready");
             }
         }
         
