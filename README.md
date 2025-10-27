@@ -3,6 +3,7 @@
 
 # USB MIDI Class Example (with TX and RX operation)
 
+TESTED WITH ESP32-S3 (https://github.com/vcc-gnd/YD-ESP32-S3/blob/main/README.md) and M-VAVE Blackbox.
 
 This example provides basic USB Host Midi functionality by implementing a midi class driver and a Host Library task to send and receive MIDI messages. The example does the following:
 
