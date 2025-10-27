@@ -1,0 +1,22 @@
+{
+  "C_Cpp.intelliSenseEngine": "default",
+  "idf.espIdfPathWin": "C:\\Users\\Helga\\esp\\v5.5.1\\esp-idf",
+  "idf.toolsPathWin": "C:\\Users\\Helga\\.espressif",
+  "idf.pythonInstallPath": "C:\\Users\\Helga\\.espressif\\tools\\idf-python\\3.11.2\\python.exe",
+  "idf.flashType": "UART",
+  "idf.portWin": "COM3",
+  "idf.monitorPort": "COM3",
+  "idf.openOcdConfigs": [
+    "board/esp32s3-builtin.cfg"
+  ],
+  "clangd.path": "C:\\Users\\Helga\\.espressif\\tools\\esp-clang\\esp-19.1.2_20250312\\esp-clang\\bin\\clangd.exe",
+  "clangd.arguments": [
+    "--background-index",
+    "--query-driver=C:\\Users\\Helga\\.espressif\\tools\\xtensa-esp-elf\\esp-14.2.0_20241119\\xtensa-esp-elf\\bin\\xtensa-esp32s3-elf-gcc.exe",
+    "--compile-commands-dir=c:\\Users\\Helga\\VSCode\\midi\\build"
+  ],
+  "files.associations": {
+    "stdbool.h": "c",
+    "esp_intr_alloc.h": "c"
+  }
+}
